@@ -19,10 +19,10 @@ int main()
         Vico.age = 1;
 
         // Print des valeurs renseignées
-        printf("%s\n", Vico.name);
-        printf("%d\n", Vico.age);
+        printf("Nom du chien : %s\n", Vico.name);
+        printf("Age du chiot : %d\n", Vico.age);
 
-        printf("%s\n", Vico.race);
+        printf("Race : %s\n", Vico.race);
 
 
     return 0;
