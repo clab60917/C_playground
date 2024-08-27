@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <unistd.h>
 
 int main()
 {
@@ -14,9 +15,12 @@ int main()
         
     {
         printf("Bienvenue monsieur %s\n", name); // METTRE EN DERNIERE LIGNE ÇA POUR PAS AVOIR LE %
-        FILE *fichier = fopen("fichiertest1.txt", "w");
+        FILE *fichier = fopen("note_secrete.txt", "w");
         fputs("Voici la note secrete agent : recupere l'oiseau dans le nid. Ce message s'autodetruira. Over. \n", fichier);
+        printf("Autodestruction dans 15 secondes");
         fclose(fichier);
+        sleep(15);
+        remove("note_secrete.txt");
     }
     else
     {
