@@ -18,6 +18,7 @@ int main()
         FILE *fichier = fopen("note_secrete.txt", "w");
         fputs("Voici la note secrete agent : recupere l'oiseau dans le nid. Ce message s'autodetruira. Over. \n", fichier);
         printf("Autodestruction dans 15 secondes");
+        fflush(stdout);  // HYPER IMPORTANT => sert a vider le tampon, pcq souvent le sprintf sont mis dans le tampon pour economiser de la puissance
         fclose(fichier);
         sleep(15);
         remove("note_secrete.txt");
