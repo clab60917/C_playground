@@ -26,6 +26,7 @@ int main()
     else
     {
         printf("Vous ne pouvez pas acceder à ce document confidentiel \n");
+        return 1;
     }
 
     return 0;
