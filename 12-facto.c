@@ -16,6 +16,6 @@ int main()
     int nombre;
     printf("Donne un nombre pour calculer son factoriel : ");
     scanf("%d", &nombre);
-    printf("Le factoriel de %d est %d", nombre, facto(nombre));
+    printf("Le factoriel de %d est %d\n", nombre, facto(nombre));
     return 0;
 }
