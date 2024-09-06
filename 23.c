@@ -1,31 +1,26 @@
-#include <stdio.h>
-#include <string.h>
 #include <unistd.h>
+#include <ctype.h>
+#include <stdio.h> // Ajout de stdio.h pour printf
 
-int main()
+int nombre_occurence(char lettre, char *chaine)
 {
-    char ecole[] = "centralesupelec";
-    char lettre_e = 'e';
-    char lettre_z = 'z';
-    char lettre_c = 'c';
     int compteur = 0;
+    char *p = chaine; // p pointe vers le début de la chaîne
 
-    for (int i = 0; i < strlen(ecole); i++)
+    while (*p != '\0') // Parcourt la chaîne jusqu'au caractère nul
     {
-        if (ecole[i] == lettre_e)
-        {
-            compteur++;
-            if (ecole[i] == lettre_z)
-            {
-                compteur++;
-                if (ecole[i] == lettre_c)
-                {
-                    compteur++;
-                }
-                printf("La lettre '%c' apparait %d fois dans la chaine \"%s\".\n", lettre_c, compteur, ecole);
-
-                return 0;
-            }
-        }
+        if (*p == lettre)
+        p++; // Avance le pointeur au caractère suivant
     }
+    return compteur; // Retourne le nombre d'occurrences
+}
+
+int main() {
+    int n = nombre_occurence('c', "CentraleSupelec"); // Recherche du caractère 'c'
+    printf("Nombre de c = %d\n", n);
+    n = nombre_occurence('z', "CentraleSupelec"); // Recherche du caractère 'z'
+    printf("Nombre de z = %d\n", n);
+    n = nombre_occurence('e', "CentraleSupelec"); // Recherche du caractère 'e'
+    printf("Nombre de e = %d\n", n);
+    return 0;
 }
