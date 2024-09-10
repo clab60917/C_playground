@@ -11,7 +11,7 @@
 
 typedef struct pixel
 {
-  unsigned char r, g, b;
+  unsigned char r, g, b; // UNSIGNED => ça peut contenir que des valeurs positives
 } pixel;
 
 typedef struct image
@@ -32,26 +32,24 @@ image *empty_image(int w, int h)
   }
   img->height = h; // Ici c'est pour dire "img" accède au membre "height" de la structure "image"
   img->width = w;
-  img->data = (image *)malloc(w * h * sizeof(pixel));
+  img->data = (pixel *)malloc(w * h * sizeof(pixel)); // ATTENTION ici pixel * != * pixel    // sert à convertir le type d'une variable (ou d'un pointeur) en un autre type. => "Cette mémoire que j'ai allouée va être utilisée pour stocker des éléments de type pixel. ON STOCKE UN TABLEAU DE PIXELS"
 
-  if (img->data == NULL) {
+  if (img->data == NULL)
+  {
     free(img);
     return NULL;
   }
   // Là on remplit les pixels de couleur avec du bleu uniquement
   // Il faut initialiser chaque pixel en bleu => donc on passe par les pointeurs
-  for (int i = 0; i < w * h; i++) { // ici la boucle parcours tous les pixels de l'image
+  for (int i = 0; i < w * h; i++)
+  { // ici la boucle parcours tous les pixels de l'image // i est l'index qui parcours chaque pixel de l'image img->data. Chaque pixel est stocké séparément dans le tableau img->data. DOnc doit le faire pour tous.
     img->data[i].r = 0;
-
-
+    img->data[i].g = 0;
+    img->data[i].b = 255;
   }
+  return img;
 }
-
-
-
-
-
-
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /* Écrit un entier (4 octets) dans un fichier binaire */
 void fwrite_int(int data, FILE *out)
