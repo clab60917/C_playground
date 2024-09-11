@@ -91,25 +91,44 @@ void write_image(char *filename, image *img)
   fwrite_int(0, fd);              // nombre de couleurs importantes (inutilisé)
 
   // TODO : écrire chacun des pixels de l'image
-  pixel * pix; // pix c'est le pointeur qui va aller faire tous les pixels dans le tableau
+  pixel *pix;      // pix c'est le pointeur qui va aller faire tous les pixels dans le tableau
   pix = img->data; // pointe vers le début du tableau de pixels
 
-  for (int x = 0; x < img->width; x++) {
-    for (int y = 0; y < img->height; y++) {
-      fwrite_byte(pix->r, fd);
-      fwrite_byte(pix->g, fd);
+  for (int x = 0; x < img->width; x++)
+  { // on se definit les axes
+    for (int y = 0; y < img->height; y++)
+    {
       fwrite_byte(pix->b, fd);
-      pix ++; // Passe au pixel d'après
+      fwrite_byte(pix->g, fd);
+      fwrite_byte(pix->r, fd);
+      pix++; // Passe au pixel d'après
     }
   }
   fclose(fd);
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////// QUESTION 4
 /* Colore le pixel aux coordonnées (x,y) avec la couleur color. */
-void draw_pixel(int x, int y, int color, image *img)
+void draw_pixel1(int x, int y, int color, image *img)
 {
+  if (x >= 0 && x < img->width && y >= 0 && y < img->height) // verif si le pixel est dans les bornes de l'image données
+  {
+    int index = (y * img->width) + x; // on calcule ou est situé le pixel dans l'image
+    img->data[index].r = (color >> 16) & 0xFF;
+    img->data[index].g = (color >> 8) & 0xFF;
+    img->data[index].b = color & 0xFF;
+  }
+  else
+  {
+    printf("On écrit pas en dehors oh eh");
+  }
 }
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////// QUESTION 5
+void draw_pixel2(int x, int y, int color, image *img)
+{
+
+}
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////// QUESTION 6
 /* Remplit le rectangle dont le coin en bas à gauche est (x1,y1) et le coin en
    haut à droite est (x2,y2) avec la couleur bgcolor. */
 void draw_rectangle(int x1, int y1, int x2, int y2, int bgcolor, image *img)
@@ -213,8 +232,30 @@ struct face_description *read_face(char *file)
 
 int main()
 {
-
   printf("Hello !\n");
+  // Definition de la taille de l'image
+  int x;
+  int y;
+  int width = 100;
+  int height = 100;
+  // là ici on cree une image vide
+  image *img = empty_image(width, height);
+  if (img != NULL) // si l'image a bien été créée
+  {
+    for (x = 0; x < img->width; x++)
+    {
+      for (y = 0; y < img->height; y++)
+      {
+        draw_pixel1(50, 50, 0x00FF00, img);
+        draw_pixel1(25, 25, 0x00FF00, img);
+        // draw_pixel1(2000, 2000, 0x00FF00, img);
+      }
+    }
+  }
+  write_image("output1.bmp", img);
+
+  free(img->data);
+  free(img);
 
   return 0;
 }
