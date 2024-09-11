@@ -21,7 +21,7 @@ typedef struct image
   struct pixel *data;
 } image;
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////  QUESTION 1
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////  QUESTION 1
 image *empty_image(int w, int h)
 {
   image *img = (image *)malloc(sizeof(image));
@@ -49,18 +49,26 @@ image *empty_image(int w, int h)
   }
   return img;
 }
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////// QUESTION 2
 
-/* Écrit un entier (4 octets) dans un fichier binaire */
-void fwrite_int(int data, FILE *out)
+// Écrit un entier (4 octets) dans un fichier binaire. Un entier => 32 bits
+void fwrite_int(int data, FILE *f)
 {
+  fputc((data >> 0) & 0xFF, f);
+  fputc((data >> 8) & 0xFF, f);  // Deuxième octet. => on decale de 8 bits à droite. OxFF sert de masque pour cacher les autres bits. 1 octet = 8 bits donc logique
+  fputc((data >> 16) & 0xFF, f); // Troisième octet
+  fputc((data >> 24) & 0xFF, f); // Octet de poids fort
 }
 
 /* Écrit un octet dans un fichier binaire */
-void fwrite_byte(unsigned char data, FILE *out)
+void fwrite_byte(unsigned char data, FILE *f)
 {
+  fputc(data, f);
 }
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////// QUESTION 3
+/// @param filename
+/// @param img
 void write_image(char *filename, image *img)
 {
   FILE *fd = fopen(filename, "wb");
@@ -83,9 +91,20 @@ void write_image(char *filename, image *img)
   fwrite_int(0, fd);              // nombre de couleurs importantes (inutilisé)
 
   // TODO : écrire chacun des pixels de l'image
+  pixel * pix; // pix c'est le pointeur qui va aller faire tous les pixels dans le tableau
+  pix = img->data; // pointe vers le début du tableau de pixels
+
+  for (int x = 0; x < img->width; x++) {
+    for (int y = 0; y < img->height; y++) {
+      fwrite_byte(pix->r, fd);
+      fwrite_byte(pix->g, fd);
+      fwrite_byte(pix->b, fd);
+      pix ++; // Passe au pixel d'après
+    }
+  }
   fclose(fd);
 }
-
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////// QUESTION 4
 /* Colore le pixel aux coordonnées (x,y) avec la couleur color. */
 void draw_pixel(int x, int y, int color, image *img)
 {
