@@ -108,15 +108,16 @@ int length(list *l)
 {
   list *temp = l;
   int compteur = 0;
+
   while (temp != NULL)
   {
     if (temp->next)
     {
       temp = temp->next;
-      compteur++;
     }
-    return compteur;
+    compteur++;
   }
+  return compteur;
 }
 
 void iter(list *l, void (*fct)(int))
@@ -211,6 +212,7 @@ int main()
   list *liste1 = new_list();
   liste1 = insert_front(2, liste1);
   liste1 = insert_front(4, liste1);
+  liste1 = insert_front(5, liste1);
 
   list *liste2 = new_list();
   liste2 = insert_front(1, liste2);
@@ -234,7 +236,7 @@ int main()
   printf("QUESTION 8\n");
   int longueur_liste1 = length(liste1);
   printf("La longueur de la liste 1 est : %d\n", longueur_liste1);
-
+  ////////////
   printf("l1 = ");
   display_list(l1);
   printf("\n");
