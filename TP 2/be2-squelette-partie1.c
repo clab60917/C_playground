@@ -107,15 +107,15 @@ int subset(list *l1, list *l2)
 int length(list *l)
 {
   list *temp = l;
-  while (l != NULL)
+  int compteur = 0;
+  while (temp != NULL)
   {
-    int compteur = 0;
-    compteur = l->item; // ça c'est pas bon sûr
-    temp = temp->next;
-    compteur++;
-    printf("La longueur de la liste est de %d\n", i);
+    if (temp->next != NULL)
+    {
+      temp = temp->next;
+      compteur++;
+    }
   }
-  return -1;
 }
 
 void iter(list *l, void (*fct)(int))
@@ -229,6 +229,10 @@ int main()
     printf("La liste 1 n'est pas un sous-ensemble de la liste 2\n");
   }
   ///////////////////////
+  // QUESTION 8
+  printf("QUESTION 8\n");
+  int longueur_liste1 = length(liste1);
+  printf("La longueur de la liste 1 est : %d\n", longueur_liste1);
 
   printf("l1 = ");
   display_list(l1);
