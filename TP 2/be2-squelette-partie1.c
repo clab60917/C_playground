@@ -62,29 +62,59 @@ int equal(list *l1, list *l2)
   }
   return 0;
 }
-// QUESTION 5
+// QUESTION 6
 int contains(list *l1, int x)
 {
   list *temp1 = l1;
-  while (l1 != NULL) {
-    if (l1->item = x) {
+  while (l1 != NULL)
+  {
+    if (l1->item = x)
+    {
       temp1 = temp1->next;
       printf("Il est dans la liste\n");
-    } else { 
+    }
+    else
+    {
       printf("Il n'est pas dans la liste\n");
       return 0;
     }
   }
   return 0;
 }
-
+// QUESTION 7
 int subset(list *l1, list *l2)
 {
-  return 0;
+  list *temp1 = l1;
+  list *temp2 = l2;
+
+  while (l1 != NULL && l2 != NULL)
+  {
+    if (l1->item == temp2->item) // ATTENTION : ici on a temp2 et pas l2 car on va parcourir la liste 2
+    {
+      temp1 = temp1->next;
+      temp2 = temp2->next;
+      printf("La liste 1 est un sous ensemble de la liste 2\n");
+      return 1;
+    }
+    else
+    {
+      printf("La liste 1 n'est pas un sous ensemble de la liste 2\n");
+      return 0;
+    }
+  }
 }
 
 int length(list *l)
 {
+  list *temp = l;
+  while (l != NULL)
+  {
+    int compteur = 0;
+    compteur = l->item; // ça c'est pas bon sûr
+    temp = temp->next;
+    compteur++;
+    printf("La longueur de la liste est de %d\n", i);
+  }
   return -1;
 }
 
@@ -176,13 +206,29 @@ int main()
   clement = insert_front(4, clement);
   clement = insert_front(5, clement);
 
-  list *liste_actuele = clement;
-  while (liste_actuele != NULL)
+  // QUESTION 7
+  list *liste1 = new_list();
+  liste1 = insert_front(2, liste1);
+  liste1 = insert_front(4, liste1);
+
+  list *liste2 = new_list();
+  liste2 = insert_front(1, liste2);
+  liste2 = insert_front(2, liste2);
+  liste2 = insert_front(3, liste2);
+  liste2 = insert_front(4, liste2);
+  liste2 = insert_front(5, liste2);
+
+  // Tester la fonction subset
+  printf("QUESTION 7\n");
+  if (subset(liste1, liste2))
   {
-    printf("%d -> ", liste_actuele->item);
-    liste_actuele = liste_actuele->next;
+    printf("La liste 1 est un sous-ensemble de la liste 2\n");
   }
-  printf("%d -> ", clement->item);
+  else
+  {
+    printf("La liste 1 n'est pas un sous-ensemble de la liste 2\n");
+  }
+  ///////////////////////
 
   printf("l1 = ");
   display_list(l1);
