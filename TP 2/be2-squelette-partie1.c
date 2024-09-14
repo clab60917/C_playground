@@ -103,7 +103,7 @@ int subset(list *l1, list *l2)
     }
   }
 }
-
+// QUESTION 8
 int length(list *l)
 {
   list *temp = l;
@@ -111,21 +111,26 @@ int length(list *l)
 
   while (temp != NULL)
   {
-    if (temp->next)
-    {
-      temp = temp->next;
-    }
     compteur++;
+    temp = temp->next;
   }
   return compteur;
 }
-
-void iter(list *l, void (*fct)(int))
+// QUESTION 9
+void iter(list *l, void (*fct)(int)) //iter parcourt la liste. fct applique la fonction choisie à chaque élément de la liste
 {
+  // ici on va parcourir la liste et appliquer la fonction fct à chaque élément de la liste
+  list *temp = l;
+  while (temp != NULL)
+  {
+    fct(temp->item);
+    temp = temp->next;
+  }
 }
 
 void display_int(int item)
 {
+  printf("%d\n", item);
 }
 
 void display_list(list *l)
@@ -213,6 +218,7 @@ int main()
   liste1 = insert_front(2, liste1);
   liste1 = insert_front(4, liste1);
   liste1 = insert_front(5, liste1);
+  liste1 = insert_front(6, liste1);
 
   list *liste2 = new_list();
   liste2 = insert_front(1, liste2);
@@ -237,6 +243,9 @@ int main()
   int longueur_liste1 = length(liste1);
   printf("La longueur de la liste 1 est : %d\n", longueur_liste1);
   ////////////
+  // QUESTION 9
+  printf("QUESTION 9\n");
+  iter(liste1, display_int);
   printf("l1 = ");
   display_list(l1);
   printf("\n");
