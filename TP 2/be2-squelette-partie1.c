@@ -110,11 +110,12 @@ int length(list *l)
   int compteur = 0;
   while (temp != NULL)
   {
-    if (temp->next != NULL)
+    if (temp->next)
     {
       temp = temp->next;
       compteur++;
     }
+    return compteur;
   }
 }
 
