@@ -62,7 +62,7 @@ int equal(list *l1, list *l2)
   }
   return 0;
 }
-
+// QUESTION 5
 int contains(list *l1, int x)
 {
   list *temp1 = l1;
@@ -70,7 +70,7 @@ int contains(list *l1, int x)
     if (l1->item = x) {
       temp1 = temp1->next;
       printf("Il est dans la liste\n");
-    } else {
+    } else { 
       printf("Il n'est pas dans la liste\n");
       return 0;
     }
