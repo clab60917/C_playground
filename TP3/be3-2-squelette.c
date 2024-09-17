@@ -6,6 +6,12 @@ typedef struct arbre {
   struct arbre* fg;
   struct arbre* fd;
 } A;
+int displayArbre(){
+  if (arbre == NULL){
+    return 0;
+  }
+
+}
 
 int main(){
   A d = { .x = 5, .fg = NULL, .fd = NULL };
