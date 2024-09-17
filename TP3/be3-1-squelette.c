@@ -7,6 +7,7 @@ struct mystruct
   int x;
   char *name;
 };
+
 int read()
 {
   FILE *f;
@@ -33,11 +34,10 @@ int main()
   m->x = 4;
   m->name = malloc(sizeof(char) * 100);
   strcpy(m->name, "coucou");
-  fwrite(m, sizeof(struct mystruct), 1, f); 
+  fwrite(m, sizeof(struct mystruct), 1, f);
   fwrite(m->name, sizeof(char), strlen(m->name) + 1, f); // Inclure le '\0'
   fclose(f);
   strcpy(m->name, "bonjour");
-
 
   printf("m->x = %i\n", m->x);
   printf("m->name = %s\n", m->name);
