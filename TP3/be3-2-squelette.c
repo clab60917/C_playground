@@ -31,11 +31,23 @@ void displaySorted(A *node)
   }
   // Afficher ceux de gauche puis ceux de droite, pcq à gauche c'est plus petit d'apres enoncé
   displaySorted(node->fg);
-  // En fait ça classe pas en fonction de plus ou moins, mais ça prend chaque segment de l'arbre et affiche le root. Vu que c'est le plus inf à chaque fois bingo.
-  printf("Node : %d\n", node->node);
   displaySorted(node->fd);
 
+  // En fait ça classe pas en fonction de plus ou moins, mais ça prend chaque segment de l'arbre et affiche le root. Vu que c'est le plus inf à chaque fois bingo.
+  printf("Node : %d\n", node->node);
+}
 
+void writeArbre(A *node)
+{
+  if (node == NULL)
+  {
+    return;
+  }
+  FILE *f;
+  f = fopen("arbre.blob", "w");
+  struct mystruct *node = malloc(sizeof(struct arbre));
+  fwrite(node, sizeof(struct arbre), 1, f);
+  fclose(f);
 }
 
 int main()
@@ -46,6 +58,7 @@ int main()
   A a = {.node = 30, .fg = &b, .fd = &c};
   displayArbre(&a);
   displaySorted(&a);
+  writeArbre(&a);
 
   return 0;
 }
